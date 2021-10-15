@@ -24,8 +24,10 @@ type AppConfig struct {
 }
 
 type SlackConfig struct {
-	Webhook string `env:"SLACK_WEBHOOK,required"`
-	Color   string `env:"SLACK_ATTACHMENT_COLOR" envDefault:"warning"`
+	Webhook   string `env:"SLACK_WEBHOOK,required"`
+	Color     string `env:"SLACK_ATTACHMENT_COLOR" envDefault:"warning"`
+	Username  string `env:"SLACK_USERNAME" envDefault:"Synology"`
+	IconEmoji string `env:"SLACK_ICONEMOJI" envDefault:":robot_face:"`
 }
 
 // PostHandler send notifications from synology to slack
@@ -52,7 +54,7 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		msg := slack.WebhookMessage{Attachments: []slack.Attachment{{Color: slackConfig.Color, Text: fmt.Sprintf("%s", synologyMessage.Message)}}}
+		msg := slack.WebhookMessage{Username: slackConfig.Username, IconEmoji: slackConfig.IconEmoji, Attachments: []slack.Attachment{{Color: slackConfig.Color, Text: fmt.Sprintf("%s", synologyMessage.Message)}}}
 
 		err = slack.PostWebhook(slackConfig.Webhook, &msg)
 		if err != nil {

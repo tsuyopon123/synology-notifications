@@ -17,6 +17,8 @@ Settings are supplied by setting environment variables
 
 - `SLACK_WEBHOOK`: URL for the Slack web hook
 - `SLACK_ATTACHMENT_COLOR`: Color to use for the attachments can use hex `#36a64f`
+- `SLACK_USERNAME`: UserName for the Slack webhook
+- `SLACK_ICONEMOJI`: UserIcomEmoji for Slack webhook
 
 ## Cmd
 
